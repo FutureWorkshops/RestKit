@@ -50,6 +50,7 @@
 @synthesize authenticationType = _authenticationType;
 @synthesize username = _username;
 @synthesize password = _password;
+@synthesize disableCertificateValidation = _disableCertificateValidation;
 @synthesize method = _method;
 @synthesize cachePolicy = _cachePolicy;
 @synthesize cache = _cache;

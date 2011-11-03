@@ -126,6 +126,8 @@ typedef enum {
     RKRequestBackgroundPolicy _backgroundPolicy;
     UIBackgroundTaskIdentifier _backgroundTaskIdentifier;
     #endif
+    
+    BOOL _disableCertificateValidation;
 }
 
 /**
@@ -227,6 +229,14 @@ typedef enum {
  The password to use for an HTTP Authentication
  */
 @property(nonatomic, retain) NSString *password;
+
+/**
+ Accept all SSL certificates. This is a potential security exposure,
+ and should be used ONLY while debugging in a controlled environment.
+ 
+ *Default*: _NO_
+ */
+@property (nonatomic, assign) BOOL disableCertificateValidation;
 
 /*** @name OAuth Secrets */
 

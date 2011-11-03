@@ -100,10 +100,12 @@ extern NSString* cacheURLKey;
 }
 
 - (BOOL)isServerTrusted:(SecTrustRef)trust {
+#ifdef RESTKIT_SSL_VALIDATION
     RKClient* client = [RKClient sharedClient];
+#endif
     BOOL proceed = NO;
     
-    if( client.disableCertificateValidation ) {
+    if( _request.disableCertificateValidation ) {
         proceed = YES;
     }
 #ifdef RESTKIT_SSL_VALIDATION
@@ -164,8 +166,10 @@ extern NSString* cacheURLKey;
 	if ([[space authenticationMethod] isEqualToString:NSURLAuthenticationMethodServerTrust]) {
 		// server is using an SSL certificate that the OS can't validate
 		// see whether the client settings allow validation here
-		RKClient* client = [RKClient sharedClient];
-		if (client.disableCertificateValidation
+#ifdef RESTKIT_SSL_VALIDATION
+        RKClient* client = [RKClient sharedClient];
+#endif
+		if (_request.disableCertificateValidation
 #ifdef RESTKIT_SSL_VALIDATION
             || [client.additionalRootCertificates count] > 0
 #endif

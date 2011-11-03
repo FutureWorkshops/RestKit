@@ -214,6 +214,7 @@ NSString *RKPathAppendQueryParams(NSString *resourcePath, NSDictionary *queryPar
 - (void)setupRequest:(RKRequest *)request {
 	request.additionalHTTPHeaders = _HTTPHeaders;
     request.authenticationType = self.authenticationType;
+    request.disableCertificateValidation = self.disableCertificateValidation;
 	request.username = self.username;
 	request.password = self.password;
 	request.cachePolicy = self.cachePolicy;
