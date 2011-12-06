@@ -277,7 +277,6 @@ NSString *RKPathAppendQueryParams(NSString *resourcePath, NSDictionary *queryPar
 /// @name SSL Validation
 /////////////////////////////////////////////////////////////////////////
 
-#ifdef RESTKIT_SSL_VALIDATION
 /**
  A set of additional certificates to be used in evaluating server
  SSL certificates.
@@ -291,7 +290,6 @@ NSString *RKPathAppendQueryParams(NSString *resourcePath, NSDictionary *queryPar
  @see additionalRootCertificates
  */
 - (void)addRootCertificate:(SecCertificateRef)cert;
-#endif
 
 /////////////////////////////////////////////////////////////////////////
 /// @name Authentication

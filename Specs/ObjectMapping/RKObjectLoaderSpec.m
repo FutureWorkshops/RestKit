@@ -61,6 +61,7 @@
 }
 
 - (void)willSendWithObjectLoader:(RKObjectLoader *)objectLoader {
+    NSLog(@"RKSpecComplexUser willSendWithObjectLoader: INVOKED!!");
     return;
 }
 
@@ -117,7 +118,7 @@
     return provider;
 }
 
-- (void)itShouldHandleTheErrorCaseAppropriately {
+- (void)testShouldHandleTheErrorCaseAppropriately {
     RKObjectManager* objectManager = RKSpecNewObjectManager();
     RKSpecResponseLoader* responseLoader = [RKSpecResponseLoader responseLoader];
     RKObjectLoader* objectLoader = [objectManager objectLoaderWithResourcePath:@"/errors.json" delegate:responseLoader];
@@ -128,20 +129,21 @@
     [objectLoader sendAsynchronously];
     [responseLoader waitForResponse];
     
-    [expectThat(responseLoader.failureError) shouldNot:be(nil)];
+    assertThat(responseLoader.failureError, isNot(nilValue()));
     
-    [expectThat([responseLoader.failureError localizedDescription]) should:be(@"error1, error2")];
+    assertThat([responseLoader.failureError localizedDescription], is(equalTo(@"error1, error2")));
     
     NSArray* objects = [[responseLoader.failureError userInfo] objectForKey:RKObjectMapperErrorObjectsKey];
     RKErrorMessage* error1 = [objects objectAtIndex:0];
     RKErrorMessage* error2 = [objects lastObject];
     
-    [expectThat(error1.errorMessage) should:be(@"error1")];
-    [expectThat(error2.errorMessage) should:be(@"error2")];
+    assertThat(error1.errorMessage, is(equalTo(@"error1")));
+    assertThat(error2.errorMessage, is(equalTo(@"error2")));
 }
 
-- (void)itShouldNotCrashWhenLoadingAnErrorResponseWithAnUnmappableMIMEType {
+- (void)testShouldNotCrashWhenLoadingAnErrorResponseWithAnUnmappableMIMEType {
     RKObjectManager* objectManager = RKSpecNewObjectManager();
+    RKSpecStubNetworkAvailability(YES);
     RKSpecResponseLoader* loader = [RKSpecResponseLoader responseLoader];
     [objectManager loadObjectsAtResourcePath:@"/404" delegate:loader];
     [loader waitForResponse];
@@ -150,57 +152,61 @@
 
 #pragma mark - Complex JSON
 
-- (void)itShouldLoadAComplexUserObjectWithTargetObject {
+- (void)testShouldLoadAComplexUserObjectWithTargetObject {
     RKSpecComplexUser* user = [[RKSpecComplexUser new] autorelease];
     RKObjectManager* objectManager = [RKObjectManager objectManagerWithBaseURL:RKSpecGetBaseURL()];
-    [objectManager setMappingProvider:[self providerForComplexUser]];
     RKSpecResponseLoader* responseLoader = [RKSpecResponseLoader responseLoader];    
     RKObjectLoader* objectLoader = [objectManager objectLoaderWithResourcePath:@"/JSON/ComplexNestedUser.json" delegate:responseLoader];
     NSString *authString = [NSString stringWithFormat:@"TRUEREST username=%@&password=%@&apikey=123456&class=iphone", @"username", @"password"];
     [objectLoader.URLRequest addValue:authString forHTTPHeaderField:@"Authorization"];
     objectLoader.method = RKRequestMethodGET;
-    objectLoader.targetObject = user;    
+    objectLoader.targetObject = user;
+
+    [objectManager setMappingProvider:[self providerForComplexUser]];
     
     [objectLoader sendAsynchronously];
     [responseLoader waitForResponse];
     
-    [expectThat(user.firstname) should:be(@"Diego")];
+    NSLog(@"Response: %@", responseLoader.objects);
+    
+    assertThat(user.firstname, is(equalTo(@"Diego")));
 }
 
-- (void)itShouldLoadAComplexUserObjectWithoutTargetObject {    
+- (void)testShouldLoadAComplexUserObjectWithoutTargetObject {    
     RKObjectManager* objectManager = [RKObjectManager objectManagerWithBaseURL:RKSpecGetBaseURL()];
-    [objectManager setMappingProvider:[self providerForComplexUser]];
-    RKSpecResponseLoader* responseLoader = [RKSpecResponseLoader responseLoader];
-    RKObjectLoader* objectLoader = [objectManager objectLoaderWithResourcePath:@"/JSON/ComplexNestedUser.json" delegate:responseLoader];
-    objectLoader.method = RKRequestMethodGET;        
-    
-    [objectLoader sendAsynchronously];
-    [responseLoader waitForResponse];
-    [expectThat([responseLoader.objects count]) should:be(1)];
-    RKSpecComplexUser* user = [responseLoader.objects lastObject];
-    
-    [expectThat(user.firstname) should:be(@"Diego")];
-}
-
-- (void)itShouldLoadAComplexUserObjectUsingRegisteredKeyPath {
-    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelTrace);
-    RKObjectManager* objectManager = [RKObjectManager objectManagerWithBaseURL:RKSpecGetBaseURL()];
-    [objectManager setMappingProvider:[self providerForComplexUser]];
     RKSpecResponseLoader* responseLoader = [RKSpecResponseLoader responseLoader];
     RKObjectLoader* objectLoader = [objectManager objectLoaderWithResourcePath:@"/JSON/ComplexNestedUser.json" delegate:responseLoader];
     objectLoader.method = RKRequestMethodGET;
     
+    [objectManager setMappingProvider:[self providerForComplexUser]];
+    
     [objectLoader sendAsynchronously];
     [responseLoader waitForResponse];
-    [expectThat([responseLoader.objects count]) should:be(1)];
+    assertThatInt([responseLoader.objects count], is(equalToInt(1)));
     RKSpecComplexUser* user = [responseLoader.objects lastObject];
     
-    [expectThat(user.firstname) should:be(@"Diego")];
+    assertThat(user.firstname, is(equalTo(@"Diego")));
+}
+
+- (void)testShouldLoadAComplexUserObjectUsingRegisteredKeyPath {
+    RKObjectManager* objectManager = [RKObjectManager objectManagerWithBaseURL:RKSpecGetBaseURL()];
+    RKSpecResponseLoader* responseLoader = [RKSpecResponseLoader responseLoader];
+    RKObjectLoader* objectLoader = [objectManager objectLoaderWithResourcePath:@"/JSON/ComplexNestedUser.json" delegate:responseLoader];
+    objectLoader.method = RKRequestMethodGET;
+    
+    [objectManager setMappingProvider:[self providerForComplexUser]];
+    
+    [objectLoader sendAsynchronously];
+    [responseLoader waitForResponse];
+    assertThatInt([responseLoader.objects count], is(equalToInt(1)));
+    RKSpecComplexUser* user = [responseLoader.objects lastObject];
+    
+    assertThat(user.firstname, is(equalTo(@"Diego")));
 }
 
 #pragma mark - willSendWithObjectLoader:
 
-- (void)itShouldInvokeWillSendWithObjectLoaderOnSend {
+- (void)testShouldInvokeWillSendWithObjectLoaderOnSend {
 //    RKObjectManager* objectManager = [RKObjectManager objectManagerWithBaseURL:RKSpecGetBaseURL()];
     RKObjectManager* objectManager = RKSpecNewObjectManager();
     [objectManager setMappingProvider:[self providerForComplexUser]];
@@ -217,7 +223,7 @@
     [mockObject verify];
 }
 
-- (void)itShouldInvokeWillSendWithObjectLoaderOnSendAsynchronously {
+- (void)testShouldInvokeWillSendWithObjectLoaderOnSendAsynchronously {
     RKObjectManager* objectManager = [RKObjectManager objectManagerWithBaseURL:RKSpecGetBaseURL()];
     [objectManager setMappingProvider:[self providerForComplexUser]];
     RKSpecComplexUser* user = [[RKSpecComplexUser new] autorelease];
@@ -233,7 +239,7 @@
     [mockObject verify];
 }
 
-- (void)itShouldInvokeWillSendWithObjectLoaderOnSendSynchronously {
+- (void)testShouldInvokeWillSendWithObjectLoaderOnSendSynchronously {
     RKObjectManager* objectManager = [RKObjectManager objectManagerWithBaseURL:RKSpecGetBaseURL()];
     [objectManager setMappingProvider:[self providerForComplexUser]];
     RKSpecComplexUser* user = [[RKSpecComplexUser new] autorelease];
@@ -247,7 +253,7 @@
     [mockObject verify];
 }
 
-- (void)itShouldLoadResultsNestedAtAKeyPath {
+- (void)testShouldLoadResultsNestedAtAKeyPath {
     RKObjectManager* objectManager = RKSpecNewObjectManager();
     RKObjectMapping* objectMapping = [RKObjectMapping mappingForClass:[RKObjectLoaderSpecResultModel class]];
     [objectMapping mapKeyPath:@"id" toAttribute:@"ID"];
@@ -264,15 +270,16 @@
     assertThat([[[loader objects] objectAtIndex:1] photoURL], is(equalTo(@"1308634984.jpg")));
 }
 
-- (void)itShouldAllowMutationOfTheParsedDataInWillMapData {
+- (void)testShouldAllowMutationOfTheParsedDataInWillMapData {
     RKSpecResponseLoaderWithWillMapData* loader = (RKSpecResponseLoaderWithWillMapData*)[RKSpecResponseLoaderWithWillMapData responseLoader];
     RKObjectManager* manager = RKSpecNewObjectManager();
+    RKSpecStubNetworkAvailability(YES);
     [manager loadObjectsAtResourcePath:@"/JSON/humans/1.json" delegate:loader];
     [loader waitForResponse];
     assertThat([loader.mappableData valueForKey:@"newKey"], is(equalTo(@"monkey!")));
 }
 
-- (void)itShouldAllowYouToPostAnObjectAndHandleAnEmpty204Response {
+- (void)testShouldAllowYouToPostAnObjectAndHandleAnEmpty204Response {
     RKObjectMapping* mapping = [RKObjectMapping mappingForClass:[RKSpecComplexUser class]];
     [mapping mapAttributes:@"firstname", @"lastname", @"email", nil];
     RKObjectMapping* serializationMapping = [mapping inverseMapping];
@@ -295,7 +302,7 @@
     assertThat(user.email, is(equalTo(@"blake@restkit.org")));
 }
 
-- (void)itShouldAllowYouToPOSTAnObjectAndMapBackNonNestedContent {
+- (void)testShouldAllowYouToPOSTAnObjectAndMapBackNonNestedContent {
     RKObjectMapping* mapping = [RKObjectMapping mappingForClass:[RKSpecComplexUser class]];
     [mapping mapAttributes:@"firstname", @"lastname", @"email", nil];
     RKObjectMapping* serializationMapping = [mapping inverseMapping];
@@ -318,7 +325,7 @@
     assertThat(user.email, is(equalTo(@"changed")));
 }
 
-- (void)itShouldMapContentWithoutAMIMEType {
+- (void)testShouldMapContentWithoutAMIMEType {
     // TODO: Not sure that this is even worth it. Unable to get the Sinatra server to produce such a response
     return;
     RKLogConfigureByName("RestKit/Network", RKLogLevelTrace);
@@ -345,7 +352,7 @@
     assertThat(user.email, is(equalTo(@"changed")));
 }
 
-- (void)itShouldAllowYouToPOSTAnObjectOfOneTypeAndGetBackAnother {
+- (void)testShouldAllowYouToPOSTAnObjectOfOneTypeAndGetBackAnother {
     RKObjectMapping* sourceMapping = [RKObjectMapping mappingForClass:[RKSpecComplexUser class]];
     [sourceMapping mapAttributes:@"firstname", @"lastname", @"email", nil];
     RKObjectMapping* serializationMapping = [sourceMapping inverseMapping];
@@ -381,7 +388,7 @@
 }
 
 // TODO: Should live in a different file...
-- (void)itShouldAllowYouToPOSTAnObjectAndMapBackNonNestedContentViapostObject {
+- (void)testShouldAllowYouToPOSTAnObjectAndMapBackNonNestedContentViapostObject {
     RKObjectMapping* mapping = [RKObjectMapping mappingForClass:[RKSpecComplexUser class]];
     [mapping mapAttributes:@"firstname", @"lastname", @"email", nil];
     RKObjectMapping* serializationMapping = [mapping inverseMapping];
@@ -403,7 +410,7 @@
     assertThat(user.email, is(equalTo(@"changed")));
 }
 
-- (void)itShouldRespectTheRootKeyPathWhenConstructingATemporaryObjectMappingProvider {
+- (void)testShouldRespectTheRootKeyPathWhenConstructingATemporaryObjectMappingProvider {
     RKObjectMapping* userMapping = [RKObjectMapping mappingForClass:[RKSpecComplexUser class]];
     userMapping.rootKeyPath = @"data.STUser";
     [userMapping mapAttributes:@"firstname", nil];
@@ -419,10 +426,12 @@
     [objectLoader sendAsynchronously];
     [responseLoader waitForResponse];
     
-    [expectThat(user.firstname) should:be(@"Diego")];
+    NSLog(@"Response: %@", responseLoader.objects);
+    
+    assertThat(user.firstname, is(equalTo(@"Diego")));
 }
 
-- (void)itShouldReturnSuccessWhenTheStatusCodeIs200AndTheResponseBodyIsEmpty {
+- (void)testShouldReturnSuccessWhenTheStatusCodeIs200AndTheResponseBodyIsEmpty {
     RKObjectManager* objectManager = RKSpecNewObjectManager();
 
     RKSpecComplexUser* user = [[RKSpecComplexUser new] autorelease];
@@ -443,7 +452,7 @@
     assertThatBool(responseLoader.success, is(equalToBool(YES)));
 }
 
-- (void)itShouldInvokeTheDelegateWithTheTargetObjectWhenTheStatusCodeIs200AndTheResponseBodyIsEmpty {
+- (void)testShouldInvokeTheDelegateWithTheTargetObjectWhenTheStatusCodeIs200AndTheResponseBodyIsEmpty {
     RKObjectManager* objectManager = RKSpecNewObjectManager();
     
     RKSpecComplexUser* user = [[RKSpecComplexUser new] autorelease];
@@ -464,7 +473,7 @@
     assertThat(responseLoader.objects, hasItem(user));
 }
 
-- (void)itShouldConsiderTheLoadOfEmptyObjectsWithoutAnyMappableAttributesAsSuccess {
+- (void)testShouldConsiderTheLoadOfEmptyObjectsWithoutAnyMappableAttributesAsSuccess {
     RKObjectManager* objectManager = RKSpecNewObjectManager();
     
     RKObjectMapping* userMapping = [RKObjectMapping mappingForClass:[RKSpecComplexUser class]];
@@ -478,7 +487,7 @@
     assertThatBool(responseLoader.success, is(equalToBool(YES)));
 }
 
-- (void)itShouldInvokeTheDelegateOnSuccessIfTheResponseIsAnEmptyArray {
+- (void)testShouldInvokeTheDelegateOnSuccessIfTheResponseIsAnEmptyArray {
     RKObjectManager* objectManager = RKSpecNewObjectManager();    
     RKSpecResponseLoader* responseLoader = [RKSpecResponseLoader responseLoader];
     responseLoader.timeout = 20;
@@ -489,7 +498,7 @@
     assertThat(responseLoader.objects, is(empty()));
 }
 
-- (void)itShouldInvokeTheDelegateOnSuccessIfTheResponseIsAnEmptyDictionary {
+- (void)testShouldInvokeTheDelegateOnSuccessIfTheResponseIsAnEmptyDictionary {
     RKObjectManager* objectManager = RKSpecNewObjectManager();    
     RKSpecResponseLoader* responseLoader = [RKSpecResponseLoader responseLoader];
     responseLoader.timeout = 20;
@@ -500,7 +509,7 @@
     assertThat(responseLoader.objects, is(empty()));
 }
 
-- (void)itShouldInvokeTheDelegateOnSuccessIfTheResponseIsAnEmptyString {
+- (void)testShouldInvokeTheDelegateOnSuccessIfTheResponseIsAnEmptyString {
     RKObjectManager* objectManager = RKSpecNewObjectManager();    
     RKSpecResponseLoader* responseLoader = [RKSpecResponseLoader responseLoader];
     responseLoader.timeout = 20;
@@ -509,26 +518,6 @@
     assertThat(responseLoader.objects, isNot(nilValue()));
     assertThatBool([responseLoader.objects isKindOfClass:[NSArray class]], is(equalToBool(YES)));
     assertThat(responseLoader.objects, is(empty()));
-}
-
-- (void)itShouldNotBlockNetworkOperationsWhileAwaitingObjectMapping {
-    RKObjectManager* objectManager = RKSpecNewObjectManager();    
-    objectManager.requestCache.storagePolicy = RKRequestCacheStoragePolicyDisabled;
-    objectManager.client.requestQueue.concurrentRequestsLimit = 1;    
-    RKObjectMapping* userMapping = [RKObjectMapping mappingForClass:[RKSpecComplexUser class]];
-    userMapping.rootKeyPath = @"human";
-    [userMapping mapAttributes:@"name", @"id", nil];
-    
-    // Suspend the Queue to block object mapping
-    dispatch_suspend(objectManager.mappingQueue);
-    
-    RKSpecResponseLoader* responseLoader = [RKSpecResponseLoader responseLoader];
-    [objectManager loadObjectsAtResourcePath:@"/humans/1" objectMapping:userMapping delegate:nil];
-    [objectManager.client get:@"/empty/string" delegate:responseLoader];
-    [responseLoader waitForResponse];
-    
-    // We should get a response is network is released even though object mapping didn't finish
-    assertThatBool(responseLoader.success, is(equalToBool(YES)));
 }
 
 @end

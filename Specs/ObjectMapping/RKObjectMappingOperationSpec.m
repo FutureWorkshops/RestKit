@@ -45,7 +45,7 @@
 
 - (BOOL)validateBoolString:(id *)ioValue error:(NSError **)outError {
     if ([(NSObject *)*ioValue isKindOfClass:[NSString class]] && [(NSString *)*ioValue isEqualToString:@"FAIL"]) {
-        *outError = [NSError errorWithDomain:RKErrorDomain code:RKObjectMapperErrorUnmappableContent userInfo:nil];
+        *outError = [NSError errorWithDomain:RKRestKitErrorDomain code:RKObjectMapperErrorUnmappableContent userInfo:nil];
         return NO;
     } else if ([(NSObject *)*ioValue isKindOfClass:[NSString class]] && [(NSString *)*ioValue isEqualToString:@"REJECT"]) {
         return NO;
@@ -64,7 +64,7 @@
 
 @implementation RKObjectMappingOperationSpec
 
-- (void)itShouldNotUpdateEqualURLProperties {
+- (void)testShouldNotUpdateEqualURLProperties {
     RKObjectMapping* mapping = [RKObjectMapping mappingForClass:[TestMappable class]];
     [mapping mapAttributes:@"url", nil];
     NSURL* url1 = [NSURL URLWithString:@"http://www.restkit.org"];
@@ -81,7 +81,7 @@
     [operation release];
 }
 
-- (void)itShouldSuccessfullyMapBoolsToStrings {
+- (void)testShouldSuccessfullyMapBoolsToStrings {
     RKObjectMapping* mapping = [RKObjectMapping mappingForClass:[TestMappable class]];
     [mapping mapAttributes:@"boolString", nil];
     TestMappable* object = [[[TestMappable alloc] init] autorelease];
@@ -96,7 +96,7 @@
     [operation release];
 }
 
-- (void)itShouldSuccessfullyMapTrueBoolsToNSNumbers {
+- (void)testShouldSuccessfullyMapTrueBoolsToNSNumbers {
     RKObjectMapping* mapping = [RKObjectMapping mappingForClass:[TestMappable class]];
     [mapping mapAttributes:@"boolNumber", nil];
     TestMappable* object = [[[TestMappable alloc] init] autorelease];
@@ -111,7 +111,7 @@
     [operation release];
 }
 
-- (void)itShouldSuccessfullyMapFalseBoolsToNSNumbers {
+- (void)testShouldSuccessfullyMapFalseBoolsToNSNumbers {
     RKObjectMapping* mapping = [RKObjectMapping mappingForClass:[TestMappable class]];
     [mapping mapAttributes:@"boolNumber", nil];
     TestMappable* object = [[[TestMappable alloc] init] autorelease];
@@ -126,7 +126,7 @@
     [operation release];
 }
 
-- (void)itShouldSuccessfullyMapNumbersToStrings {
+- (void)testShouldSuccessfullyMapNumbersToStrings {
     RKObjectMapping* mapping = [RKObjectMapping mappingForClass:[TestMappable class]];
     [mapping mapKeyPath:@"number" toAttribute:@"boolString"];
     TestMappable* object = [[[TestMappable alloc] init] autorelease];
@@ -141,7 +141,7 @@
     [operation release];
 }
 
-- (void)itShouldFailTheMappingOperationIfKeyValueValidationSetsAnError {
+- (void)testShouldFailTheMappingOperationIfKeyValueValidationSetsAnError {
     RKObjectMapping* mapping = [RKObjectMapping mappingForClass:[TestMappable class]];
     [mapping mapAttributes:@"boolString", nil];
     TestMappable* object = [[[TestMappable alloc] init] autorelease];
@@ -154,7 +154,7 @@
     [operation release];
 }
 
-- (void)itShouldNotSetTheAttributeIfKeyValueValidationReturnsNo {
+- (void)testShouldNotSetTheAttributeIfKeyValueValidationReturnsNo {
     RKObjectMapping* mapping = [RKObjectMapping mappingForClass:[TestMappable class]];
     [mapping mapAttributes:@"boolString", nil];
     TestMappable* object = [[[TestMappable alloc] init] autorelease];
@@ -170,7 +170,7 @@
 
 #pragma mark - TimeZone Handling
 
-- (void)itShouldMapAUTCDateWithoutChangingTheTimeZone {
+- (void)testShouldMapAUTCDateWithoutChangingTheTimeZone {
     RKObjectMapping* mapping = [RKObjectMapping mappingForClass:[TestMappable class]];
     [mapping mapAttributes:@"date", nil];
     TestMappable* object = [[[TestMappable alloc] init] autorelease];
@@ -184,7 +184,7 @@
     [operation release];
 }
 
-- (void)itShouldMapASimpleDateStringAppropriately {
+- (void)testShouldMapASimpleDateStringAppropriately {
     RKObjectMapping* mapping = [RKObjectMapping mappingForClass:[TestMappable class]];
     [mapping mapAttributes:@"date", nil];
     TestMappable* object = [[[TestMappable alloc] init] autorelease];
@@ -198,7 +198,7 @@
     [operation release];
 }
 
-- (void)itShouldMapAStringIntoTheLocalTimeZone {
+- (void)testShouldMapAStringIntoTheLocalTimeZone {
     NSTimeZone *EDTTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"EDT"];
     NSDateFormatter *dateFormatter = [[NSDateFormatter new] autorelease];
     dateFormatter.dateFormat = @"MM-dd-yyyy";
@@ -218,7 +218,7 @@
     [operation release];
 }
 
-- (void)itShouldMapADateToAStringUsingThePreferredDateFormatter {
+- (void)testShouldMapADateToAStringUsingThePreferredDateFormatter {
     RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelTrace);
     RKObjectMapping* mapping = [RKObjectMapping mappingForClass:[TestMappable class]];
     [mapping mapKeyPath:@"date" toAttribute:@"boolString"];
@@ -236,79 +236,7 @@
     assertThat(newObject.boolString, is(equalTo(@"11-27-1982")));
 }
 
-- (void)itShouldGenerateAnUnknownKeyPathExceptionWhenIgnoreUnknownKeyPathsIsNO {
-    RKObjectMapping* mapping = [RKObjectMapping mappingForClass:[NSMutableDictionary class]];
-    [mapping mapAttributes:@"invalid", @"boolString", nil];
-    mapping.ignoreUnknownKeyPaths = NO;
-    TestMappable* object = [[[TestMappable alloc] init] autorelease];
-    object.boolString = @"test";
-    NSMutableDictionary* dictionary = [NSMutableDictionary dictionary];
-    RKObjectMappingOperation* operation = [[RKObjectMappingOperation alloc] initWithSourceObject:object destinationObject:dictionary mapping:mapping];
-    NSError* error = nil;
-    BOOL success;
-    NSException* exception = nil;
-    @try {
-        success = [operation performMapping:&error];
-    }
-    @catch (NSException *e) {
-        exception = e;
-    }
-    @finally {
-        assertThat(exception, isNot(nilValue()));
-        [operation release];
-    }
-}
-
-- (void)itShouldOptionallyIgnoreUnknownKeyPathAttributes {
-    RKObjectMapping* mapping = [RKObjectMapping mappingForClass:[NSMutableDictionary class]];
-    [mapping mapAttributes:@"invalid", @"boolString", nil];
-    mapping.ignoreUnknownKeyPaths = YES;
-    TestMappable* object = [[[TestMappable alloc] init] autorelease];
-    object.boolString = @"test";
-    NSMutableDictionary* dictionary = [NSMutableDictionary dictionary];
-    RKObjectMappingOperation* operation = [[RKObjectMappingOperation alloc] initWithSourceObject:object destinationObject:dictionary mapping:mapping];
-    NSError* error = nil;
-    BOOL success;
-    NSException* exception = nil;
-    @try {
-        success = [operation performMapping:&error];
-    }
-    @catch (NSException *e) {
-        exception = e;
-    }
-    @finally {
-        assertThat(exception, is(nilValue()));
-        assertThatBool(success, is(equalToBool(YES)));
-        [operation release];
-    }
-}
-
-- (void)itShouldOptionallyIgnoreUnknownKeyPathRelationships {
-    RKObjectMapping* mapping = [RKObjectMapping mappingForClass:[NSMutableDictionary class]];
-    [mapping mapAttributes:@"boolString", nil];
-    [mapping mapRelationship:@"invalid" withMapping:[RKObjectMapping mappingForClass:[TestMappable class]]];
-    mapping.ignoreUnknownKeyPaths = YES;
-    TestMappable* object = [[[TestMappable alloc] init] autorelease];
-    object.boolString = @"test";
-    NSMutableDictionary* dictionary = [NSMutableDictionary dictionary];
-    RKObjectMappingOperation* operation = [[RKObjectMappingOperation alloc] initWithSourceObject:object destinationObject:dictionary mapping:mapping];
-    NSError* error = nil;
-    BOOL success;
-    NSException* exception = nil;
-    @try {
-        success = [operation performMapping:&error];
-    }
-    @catch (NSException *e) {
-        exception = e;
-    }
-    @finally {
-        assertThat(exception, is(nilValue()));
-        assertThatBool(success, is(equalToBool(YES)));
-        [operation release];
-    }
-}
-
-- (void)itShouldLogADebugMessageIfTheRelationshipMappingTargetsAnArrayOfArrays {
+- (void)testShouldLogADebugMessageIfTheRelationshipMappingTargetsAnArrayOfArrays {
     // Create a dictionary with a dictionary containing an array
     // Use keyPath to traverse to the collection and target a hasMany
     id data = RKSpecParseFixture(@"ArrayOfNestedDictionaries.json");

@@ -21,7 +21,7 @@
 #import "RKObjectMapping.h"
 #import "RKObjectRelationshipMapping.h"
 #import "RKObjectPropertyInspector.h"
-#import "../Support/RKLog.h"
+#import "RKLog.h"
 
 // Constants
 NSString* const RKObjectMappingNestingAttributeKeyName = @"<RK_NESTING_ATTRIBUTE>";
@@ -37,10 +37,10 @@ NSString* const RKObjectMappingNestingAttributeKeyName = @"<RK_NESTING_ATTRIBUTE
 @synthesize setNilForMissingRelationships = _setNilForMissingRelationships;
 @synthesize forceCollectionMapping = _forceCollectionMapping;
 @synthesize performKeyValueValidation = _performKeyValueValidation;
-@synthesize ignoreUnknownKeyPaths = _ignoreUnknownKeyPaths;
+
 + (id)mappingForClass:(Class)objectClass {
     RKObjectMapping* mapping = [self new];
-    mapping.objectClass = objectClass;
+    mapping.objectClass = objectClass;    
     return [mapping autorelease];
 }
 
@@ -50,28 +50,13 @@ NSString* const RKObjectMappingNestingAttributeKeyName = @"<RK_NESTING_ATTRIBUTE
 
 #if NS_BLOCKS_AVAILABLE
 
-+ (id)mappingForClass:(Class)objectClass usingBlock:(void (^)(RKObjectMapping*))block {
++ (id)mappingForClass:(Class)objectClass block:(void(^)(RKObjectMapping*))block {
     RKObjectMapping* mapping = [self mappingForClass:objectClass];
     block(mapping);
     return mapping;
 }
 
-+ (id)serializationMappingUsingBlock:(void (^)(RKObjectMapping*))block {
-    RKObjectMapping* mapping = [self serializationMapping];
-    block(mapping);
-    return mapping;
-}
-
-// Deprecated... Move to category or bottom...
-+ (id)mappingForClass:(Class)objectClass withBlock:(void (^)(RKObjectMapping*))block {
-    return [self mappingForClass:objectClass usingBlock:block];
-}
-
-+ (id)mappingForClass:(Class)objectClass block:(void (^)(RKObjectMapping*))block {
-    return [self mappingForClass:objectClass usingBlock:block];
-}
-
-+ (id)serializationMappingWithBlock:(void (^)(RKObjectMapping*))block {
++ (id)serializationMappingWithBlock:(void(^)(RKObjectMapping*))block {
     RKObjectMapping* mapping = [self serializationMapping];
     block(mapping);
     return mapping;
@@ -87,28 +72,9 @@ NSString* const RKObjectMappingNestingAttributeKeyName = @"<RK_NESTING_ATTRIBUTE
         self.setNilForMissingRelationships = NO;
         self.forceCollectionMapping = NO;
         self.performKeyValueValidation = YES;
-        self.ignoreUnknownKeyPaths = NO;
     }
-
+    
     return self;
-}
-
-- (id)copyWithZone:(NSZone *)zone {
-    RKObjectMapping *copy = [[[self class] allocWithZone:zone] init];
-    copy.objectClass = self.objectClass;
-    copy.rootKeyPath = self.rootKeyPath;
-    copy.setDefaultValueForMissingAttributes = self.setDefaultValueForMissingAttributes;
-    copy.setNilForMissingRelationships = self.setNilForMissingRelationships;
-    copy.forceCollectionMapping = self.forceCollectionMapping;
-    copy.performKeyValueValidation = self.performKeyValueValidation;
-	copy.dateFormatters = self.dateFormatters;
-	copy.preferredDateFormatter = self.preferredDateFormatter;
-    
-    for (RKObjectAttributeMapping *mapping in self.mappings) {
-        [copy addAttributeMapping:mapping];
-    }
-    
-    return copy;
 }
 
 - (void)dealloc {
@@ -119,29 +85,29 @@ NSString* const RKObjectMappingNestingAttributeKeyName = @"<RK_NESTING_ATTRIBUTE
     [super dealloc];
 }
 
-- (NSArray *)mappedKeyPaths {
+- (NSArray*)mappedKeyPaths {
     return [_mappings valueForKey:@"destinationKeyPath"];
 }
 
-- (NSArray *)attributeMappings {
+- (NSArray*)attributeMappings {
     NSMutableArray* mappings = [NSMutableArray array];
     for (RKObjectAttributeMapping* mapping in self.mappings) {
         if ([mapping isMemberOfClass:[RKObjectAttributeMapping class]]) {
             [mappings addObject:mapping];
         }
     }
-
+    
     return mappings;
 }
 
-- (NSArray *)relationshipMappings {
+- (NSArray*)relationshipMappings {
     NSMutableArray* mappings = [NSMutableArray array];
     for (RKObjectAttributeMapping* mapping in self.mappings) {
         if ([mapping isMemberOfClass:[RKObjectRelationshipMapping class]]) {
             [mappings addObject:mapping];
         }
     }
-
+    
     return mappings;
 }
 
@@ -154,27 +120,13 @@ NSString* const RKObjectMappingNestingAttributeKeyName = @"<RK_NESTING_ATTRIBUTE
     [self addAttributeMapping:mapping];
 }
 
-- (NSString *)description {
-    return [NSString stringWithFormat:@"%@:%p class => %@: keyPath mappings => %@", NSStringFromClass([self class]), self, NSStringFromClass(self.objectClass), _mappings];
+- (NSString*)description {
+    return [NSString stringWithFormat:@"RKObjectMapping class => %@: keyPath mappings => %@", NSStringFromClass(self.objectClass), _mappings];
 }
 
-- (id)mappingForKeyPath:(NSString *)keyPath {
-    return [self mappingForSourceKeyPath:keyPath];
-}
-
-- (id)mappingForSourceKeyPath:(NSString *)sourceKeyPath {
+- (id)mappingForKeyPath:(NSString*)keyPath {
     for (RKObjectAttributeMapping* mapping in _mappings) {
-        if ([mapping.sourceKeyPath isEqualToString:sourceKeyPath]) {
-            return mapping;
-        }
-    }
-    
-    return nil;
-}
-
-- (id)mappingForDestinationKeyPath:(NSString *)destinationKeyPath {
-    for (RKObjectAttributeMapping* mapping in _mappings) {
-        if ([mapping.destinationKeyPath isEqualToString:destinationKeyPath]) {
+        if ([mapping.sourceKeyPath isEqualToString:keyPath]) {
             return mapping;
         }
     }
@@ -192,13 +144,13 @@ NSString* const RKObjectMappingNestingAttributeKeyName = @"<RK_NESTING_ATTRIBUTE
     va_list args;
     va_start(args, attributeKeyPath);
 	NSMutableSet* attributeKeyPaths = [NSMutableSet set];
-
+                                       
     for (NSString* keyPath = attributeKeyPath; keyPath != nil; keyPath = va_arg(args, NSString*)) {
         [attributeKeyPaths addObject:keyPath];
     }
-
+    
     va_end(args);
-
+    
     [self mapAttributesCollection:attributeKeyPaths];
 }
 
@@ -258,7 +210,7 @@ NSString* const RKObjectMappingNestingAttributeKeyName = @"<RK_NESTING_ATTRIBUTE
     for (RKObjectAttributeMapping* attributeMapping in self.attributeMappings) {
         [inverseMapping mapKeyPath:attributeMapping.destinationKeyPath toAttribute:attributeMapping.sourceKeyPath];
     }
-
+    
     for (RKObjectRelationshipMapping* relationshipMapping in self.relationshipMappings) {
         if (relationshipMapping.reversible) {
             id<RKObjectMappingDefinition> mapping = relationshipMapping.mapping;
@@ -269,7 +221,7 @@ NSString* const RKObjectMappingNestingAttributeKeyName = @"<RK_NESTING_ATTRIBUTE
             [inverseMapping mapKeyPath:relationshipMapping.destinationKeyPath toRelationship:relationshipMapping.sourceKeyPath withMapping:[(RKObjectMapping*)mapping inverseMappingAtDepth:depth+1]];
         }
     }
-
+    
     return inverseMapping;
 }
 
@@ -289,7 +241,7 @@ NSString* const RKObjectMappingNestingAttributeKeyName = @"<RK_NESTING_ATTRIBUTE
     va_end(args);
 }
 
-- (void)mapKeyOfNestedDictionaryToAttribute:(NSString*)attributeName {
+- (void)mapKeyOfNestedDictionaryToAttribute:(NSString*)attributeName {    
     [self mapKeyPath:RKObjectMappingNestingAttributeKeyName toAttribute:attributeName];
 }
 
@@ -303,7 +255,7 @@ NSString* const RKObjectMappingNestingAttributeKeyName = @"<RK_NESTING_ATTRIBUTE
             return mapping;
         }
     }
-
+    
     return nil;
 }
 
@@ -313,7 +265,7 @@ NSString* const RKObjectMappingNestingAttributeKeyName = @"<RK_NESTING_ATTRIBUTE
             return mapping;
         }
     }
-
+    
     return nil;
 }
 
@@ -386,6 +338,7 @@ static NSDateFormatter *preferredDateFormatter = nil;
     
     [self addDefaultDateFormatter:dateFormatter];
     [dateFormatter release];
+
 }
 
 + (NSDateFormatter *)preferredDateFormatter {

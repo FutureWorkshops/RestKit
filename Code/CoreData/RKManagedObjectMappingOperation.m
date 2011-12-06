@@ -21,13 +21,7 @@
 #import "RKManagedObjectMappingOperation.h"
 #import "RKManagedObjectMapping.h"
 #import "NSManagedObject+ActiveRecord.h"
-#import "../Support/RKLog.h"
-#import "RKDynamicObjectMappingMatcher.h"
 #import "RKLog.h"
-
-// Set Logging Component
-#undef RKLogComponent
-#define RKLogComponent lcl_cRestKitCoreData
 
 // Set Logging Component
 #undef RKLogComponent
@@ -56,35 +50,19 @@
 @implementation RKManagedObjectMappingOperation
 
 // TODO: Move this to a better home to take exposure out of the mapper
-- (Class)operationClassForMapping:(RKObjectMapping*)mapping {
+- (Class)operationClassForMapping:(RKObjectMapping *)mapping {
     Class managedMappingClass = NSClassFromString(@"RKManagedObjectMapping");
-    Class managedMappingOperationClass = NSClassFromString(@"RKManagedObjectMappingOperation");
+    Class managedMappingOperationClass = NSClassFromString(@"RKManagedObjectMappingOperation");    
     if (managedMappingClass != nil && [mapping isMemberOfClass:managedMappingClass]) {
-        return managedMappingOperationClass;
+        return managedMappingOperationClass;        
     }
-
+    
     return [RKObjectMappingOperation class];
 }
 
 - (void)connectRelationship:(NSString *)relationshipName {
     NSDictionary* relationshipsAndPrimaryKeyAttributes = [(RKManagedObjectMapping*)self.objectMapping relationshipsAndPrimaryKeyAttributes];
-    id primaryKeyObject = [relationshipsAndPrimaryKeyAttributes objectForKey:relationshipName];
-    NSString* primaryKeyAttribute = nil;
-    if ([primaryKeyObject isKindOfClass:[RKDynamicObjectMappingMatcher class]]) {
-        RKLogTrace(@"Found a dynamic matcher attempting to connect relationshipName: %@", relationshipName);
-        RKDynamicObjectMappingMatcher* matcher = (RKDynamicObjectMappingMatcher*)primaryKeyObject;
-        if ([matcher isMatchForData:self.destinationObject]) {
-            primaryKeyAttribute = matcher.primaryKeyAttribute;
-            RKLogTrace(@"Dynamic matched succeeded. Proceeding to connect relationshipName '%@' using primaryKeyAttribute '%@'", relationshipName, primaryKeyAttribute);
-        } else {
-            RKLogTrace(@"Dynamic matcher match failed. Skipping connection of relationshipName: %@", relationshipName);
-            return;
-        }
-    } else if ([primaryKeyObject isKindOfClass:[NSString class]]) {
-        primaryKeyAttribute = (NSString*)primaryKeyObject;
-    }
-    NSAssert(primaryKeyAttribute, @"Cannot connect relationship without primaryKeyAttribute");
-    
+    NSString* primaryKeyAttribute = [relationshipsAndPrimaryKeyAttributes objectForKey:relationshipName];
     RKObjectRelationshipMapping* relationshipMapping = [self.objectMapping mappingForRelationship:relationshipName];
     id<RKObjectMappingDefinition> mapping = relationshipMapping.mapping;
     NSAssert(mapping, @"Attempted to connect relationship for keyPath '%@' without a relationship mapping defined.");
@@ -116,7 +94,6 @@
 - (void)connectRelationships {
     if ([self.objectMapping isKindOfClass:[RKManagedObjectMapping class]]) {
         NSDictionary* relationshipsAndPrimaryKeyAttributes = [(RKManagedObjectMapping*)self.objectMapping relationshipsAndPrimaryKeyAttributes];
-		RKLogTrace(@"relationshipsAndPrimaryKeyAttributes: %@", relationshipsAndPrimaryKeyAttributes);
         for (NSString* relationshipName in relationshipsAndPrimaryKeyAttributes) {
             if (self.queue) {
                 RKLogTrace(@"Enqueueing relationship connection using operation queue");
@@ -130,7 +107,7 @@
     }
 }
 
-- (BOOL)performMapping:(NSError**)error {
+- (BOOL)performMapping:(NSError **)error {
     BOOL success = [super performMapping:error];
     [self connectRelationships];
     return success;

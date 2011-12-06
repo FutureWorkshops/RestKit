@@ -3,7 +3,7 @@
 //  RestKit
 //
 //  Created by Blake Watters on 3/14/11.
-//  Copyright 2011 Two Toasters
+//  Copyright 2011 RestKit
 //  
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 //  limitations under the License.
 //
 
+#include <objc/runtime.h>
 #import "RKSpecEnvironment.h"
 #import "RKParserRegistry.h"
 
@@ -30,6 +31,14 @@ NSString* RKSpecGetBaseURL(void) {
     }
     
     return [NSString stringWithFormat:@"http://%s:4567", ipAddress];
+}
+
+void RKSpecStubNetworkAvailability(BOOL isNetworkAvailable) {
+    RKClient* client = [RKClient sharedClient];
+    if (client) {
+        id mockClient = [OCMockObject partialMockForObject:client];
+        [[[mockClient stub] andReturnValue:OCMOCK_VALUE(isNetworkAvailable)] isNetworkAvailable];
+    }
 }
 
 RKClient* RKSpecNewClient(void) {
@@ -48,12 +57,15 @@ RKOAuthClient* RKSpecNewOAuthClient(RKSpecResponseLoader* loader){
     return client;
 }
 
-RKObjectManager* RKSpecNewObjectManager(void) {
-    [RKObjectManager setDefaultMappingQueue:dispatch_queue_create("org.restkit.ObjectMapping", DISPATCH_QUEUE_SERIAL)];
+
+RKObjectManager* RKSpecNewObjectManager(void) {    
     [RKObjectMapping setDefaultDateFormatters:nil];
     RKObjectManager* objectManager = [RKObjectManager objectManagerWithBaseURL:RKSpecGetBaseURL()];
     [RKObjectManager setSharedManager:objectManager];
     [RKClient setSharedClient:objectManager.client];
+    
+    // Force reachability determination
+    [objectManager.client.reachabilityObserver getFlags];
     
     return objectManager;
 }
@@ -61,9 +73,9 @@ RKObjectManager* RKSpecNewObjectManager(void) {
 // TODO: Store initialization should not be coupled to object manager...
 RKManagedObjectStore* RKSpecNewManagedObjectStore(void) {
     RKManagedObjectStore* store = [RKManagedObjectStore objectStoreWithStoreFilename:@"RKSpecs.sqlite"];
-    [store deletePersistantStore];
     RKObjectManager* objectManager = RKSpecNewObjectManager();
     objectManager.objectStore = store;
+    [objectManager.objectStore deletePersistantStore];
     return store;
 }
 
@@ -85,7 +97,8 @@ void RKSpecClearCacheDirectory(void) {
 // Read a fixture from the app bundle
 NSString* RKSpecReadFixture(NSString* fileName) {
     NSError* error = nil;
-    NSString* filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:nil];
+    NSBundle *bundle = [NSBundle bundleForClass:[RKSpec class]];
+    NSString* filePath = [bundle pathForResource:fileName ofType:nil];
 	NSString* fixtureData = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
     if (fixtureData == nil && error) {
         [NSException raise:nil format:@"Failed to read contents of fixture '%@'. Did you add it to the app bundle? Error: %@", fileName, [error localizedDescription]];
@@ -118,31 +131,28 @@ id RKSpecParseFixture(NSString* fileName) {
     return object;
 }
 
-void RKSpecSpinRunLoopWithDuration(NSTimeInterval timeInterval) {
-    BOOL waiting = YES;
-	NSDate* startDate = [NSDate date];
-	
-	while (waiting) {		
-		[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-		if ([[NSDate date] timeIntervalSinceDate:startDate] > timeInterval) {
-			waiting = NO;
-		}
-        usleep(100);
-	}
-}
-
-void RKSpecSpinRunLoop() {
-    RKSpecSpinRunLoopWithDuration(0.1);
-}
-
 @implementation RKSpec
 
-- (void)failWithException:(NSException *) e {
-    printf("%s:%i: error: %s\n",
-           [[[e userInfo] objectForKey:SenTestFilenameKey] cString],
-           [[[e userInfo] objectForKey:SenTestLineNumberKey] intValue],
-           [[[e userInfo] objectForKey:SenTestDescriptionKey] cString]);
-    [e raise];
-}
+//- (void)failWithException:(NSException *) e {
+//    printf("%s:%i: error: %s\n",
+//           [[[e userInfo] objectForKey:SenTestFilenameKey] cString],
+//           [[[e userInfo] objectForKey:SenTestLineNumberKey] intValue],
+//           [[[e userInfo] objectForKey:SenTestDescriptionKey] cString]);
+//    [e raise];
+//}
 
+@end
+
+@implementation SenTestCase (MethodSwizzling)
+- (void)swizzleMethod:(SEL)aOriginalMethod
+              inClass:(Class)aOriginalClass
+           withMethod:(SEL)aNewMethod
+            fromClass:(Class)aNewClass
+         executeBlock:(void (^)(void))aBlock {
+    Method originalMethod = class_getClassMethod(aOriginalClass, aOriginalMethod);
+    Method mockMethod = class_getInstanceMethod(aNewClass, aNewMethod);
+    method_exchangeImplementations(originalMethod, mockMethod);
+    aBlock();
+    method_exchangeImplementations(mockMethod, originalMethod);
+}
 @end

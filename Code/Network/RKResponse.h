@@ -22,7 +22,7 @@
 #import "RKRequest.h"
 
 /**
- Models the response portion of an HTTP request/response cycle
+ Models the response portion of an HTTP request/response cycle.
  */
 @interface RKResponse : NSObject {
 	RKRequest* _request;
@@ -171,7 +171,7 @@
 - (BOOL)isCreated;
 
 /**
- Indicates an HTTP response code of 204
+ * Indicates an HTTP response code of 204
  */
 - (BOOL)isNoContent;
 

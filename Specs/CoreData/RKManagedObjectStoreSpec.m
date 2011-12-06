@@ -27,7 +27,7 @@
 
 @implementation RKManagedObjectStoreSpec
 
-- (void)itShouldCoercePrimaryKeysToStringsForLookup {
+- (void)testShouldCoercePrimaryKeysToStringsForLookup {
     RKManagedObjectStore* objectStore = RKSpecNewManagedObjectStore();
     RKObjectManager *objectManager = RKSpecNewObjectManager();
     objectManager.objectStore = objectStore;
@@ -38,7 +38,7 @@
     assertThat(newReference, is(equalTo(human)));
 }
 
-- (void)itShouldStoreNewInstancesOfCreatedObjectsByStringKey {
+- (void)testShouldStoreNewInstancesOfCreatedObjectsByStringKey {
     RKManagedObjectStore* objectStore = RKSpecNewManagedObjectStore();
     RKObjectManager *objectManager = RKSpecNewObjectManager();
     objectManager.objectStore = objectStore;
