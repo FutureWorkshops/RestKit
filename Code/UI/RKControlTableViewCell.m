@@ -44,4 +44,10 @@
     }
 }
 
+- (void)dealloc
+{
+    self.control = nil;
+    [super dealloc];
+}
+
 @end
