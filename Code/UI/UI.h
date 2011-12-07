@@ -25,6 +25,7 @@
 #import "RKTableSection.h"
 #import "RKTableItem.h"
 #import "RKControlTableItem.h"
+#import "RKControlTableViewCell.h"
 #import "RKFetchedResultsTableController.h"
 #import "RKForm.h"
 #import "RKFormSection.h"
