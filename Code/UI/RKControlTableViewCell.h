@@ -20,7 +20,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RKControlTableViewCell : UITableViewCell
+@interface RKControlTableViewCell : UITableViewCell {
+    UIControl *_control;
+}
 
 @property (nonatomic, retain) UIControl *control;
 

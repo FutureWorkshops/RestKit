@@ -22,7 +22,7 @@
 
 @implementation RKControlTableViewCell
 
-@synthesize control;
+@synthesize control=_control;
 
 - (void)layoutSubviews {
     [super layoutSubviews];
