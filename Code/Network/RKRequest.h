@@ -873,4 +873,9 @@ typedef void(^RKRequestDidFailLoadWithErrorBlock)(NSError *error);
  */
 - (void)requestDidTimeout:(RKRequest *)request;
 
+/**
+ * Sent when a request fails authentication
+ */
+- (void)requestDidFailAuthenticationChallenge:(RKRequest *)request;
+
 @end
