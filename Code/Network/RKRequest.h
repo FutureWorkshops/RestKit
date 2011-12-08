@@ -496,4 +496,9 @@ typedef enum {
  */
 - (void)requestDidTimeout:(RKRequest *)request;
 
+/**
+ * Sent when a request fails authentication
+ */
+- (void)requestDidFailAuthenticationChallenge:(RKRequest *)request;
+
 @end
