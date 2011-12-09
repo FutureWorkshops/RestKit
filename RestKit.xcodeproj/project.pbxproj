@@ -406,6 +406,10 @@
 		AF26F36A13EB40A9007F4868 /* RKOAuthClientSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AF26F36913EB40A9007F4868 /* RKOAuthClientSpec.m */; };
 		AFD8CC8D13D8E61200E63E62 /* RKOAuthClient.h in Headers */ = {isa = PBXBuildFile; fileRef = AFD8CC8B13D8E61200E63E62 /* RKOAuthClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AFD8CC8E13D8E61200E63E62 /* RKOAuthClient.m in Sources */ = {isa = PBXBuildFile; fileRef = AFD8CC8C13D8E61200E63E62 /* RKOAuthClient.m */; };
+		B798C8011490FA8600D02DBE /* NSString+SHA1.h in Headers */ = {isa = PBXBuildFile; fileRef = B798C7FF1490FA8600D02DBE /* NSString+SHA1.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B798C8021490FA8600D02DBE /* NSString+SHA1.m in Sources */ = {isa = PBXBuildFile; fileRef = B798C8001490FA8600D02DBE /* NSString+SHA1.m */; };
+		B798C8051490FB2E00D02DBE /* NSData+SHA1.h in Headers */ = {isa = PBXBuildFile; fileRef = B798C8031490FB2D00D02DBE /* NSData+SHA1.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B798C8061490FB2E00D02DBE /* NSData+SHA1.m in Sources */ = {isa = PBXBuildFile; fileRef = B798C8041490FB2D00D02DBE /* NSData+SHA1.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -958,6 +962,10 @@
 		AF26F36913EB40A9007F4868 /* RKOAuthClientSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKOAuthClientSpec.m; sourceTree = "<group>"; };
 		AFD8CC8B13D8E61200E63E62 /* RKOAuthClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKOAuthClient.h; sourceTree = "<group>"; };
 		AFD8CC8C13D8E61200E63E62 /* RKOAuthClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKOAuthClient.m; sourceTree = "<group>"; };
+		B798C7FF1490FA8600D02DBE /* NSString+SHA1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SHA1.h"; sourceTree = "<group>"; };
+		B798C8001490FA8600D02DBE /* NSString+SHA1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SHA1.m"; sourceTree = "<group>"; };
+		B798C8031490FB2D00D02DBE /* NSData+SHA1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SHA1.h"; sourceTree = "<group>"; };
+		B798C8041490FB2D00D02DBE /* NSData+SHA1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SHA1.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1372,8 +1380,12 @@
 				7319F05D14171A7200ED9CDE /* NSObject+URLEncoding.m */,
 				3F278A3A139D2AFF009AC3FA /* NSData+MD5.h */,
 				3F278A3B139D2AFF009AC3FA /* NSData+MD5.m */,
+				B798C8031490FB2D00D02DBE /* NSData+SHA1.h */,
+				B798C8041490FB2D00D02DBE /* NSData+SHA1.m */,
 				3F278A3C139D2AFF009AC3FA /* NSString+MD5.h */,
 				3F278A3D139D2AFF009AC3FA /* NSString+MD5.m */,
+				B798C7FF1490FA8600D02DBE /* NSString+SHA1.h */,
+				B798C8001490FA8600D02DBE /* NSString+SHA1.m */,
 				3F278A3E139D2AFF009AC3FA /* RKRequestCache.h */,
 				3F278A3F139D2AFF009AC3FA /* RKRequestCache.m */,
 				253A08AE12551EA500976E89 /* Network.h */,
@@ -2049,6 +2061,8 @@
 				73FE56C7126CB91600E0F30B /* RKURL.h in Headers */,
 				3F278A40139D2AFF009AC3FA /* NSData+MD5.h in Headers */,
 				3F278A42139D2AFF009AC3FA /* NSString+MD5.h in Headers */,
+				B798C8051490FB2E00D02DBE /* NSData+SHA1.h in Headers */,
+				B798C8011490FA8600D02DBE /* NSString+SHA1.h in Headers */,
 				257FB7061395DABB003A628E /* RKRequest_Internals.h in Headers */,
 				7319F05E14171A7200ED9CDE /* NSObject+URLEncoding.h in Headers */,
 				2540EB74144E7DFB00E4FC71 /* GCOAuth.h in Headers */,
@@ -2677,6 +2691,8 @@
 				AFD8CC8E13D8E61200E63E62 /* RKOAuthClient.m in Sources */,
 				2540EB75144E7DFB00E4FC71 /* GCOAuth.m in Sources */,
 				2540EB77144E7DFB00E4FC71 /* NSData+Base64.m in Sources */,
+				B798C8021490FA8600D02DBE /* NSString+SHA1.m in Sources */,
+				B798C8061490FB2E00D02DBE /* NSData+SHA1.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
