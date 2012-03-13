@@ -690,7 +690,12 @@
     } else if (self.backgroundPolicy == RKRequestBackgroundPolicyRequeue) {
         // Cancel the existing request
         [self cancelAndInformDelegate:NO];
+        [self retain];
+        RKRequestQueue *queue = self.queue;
+        [queue removeRequest:self decrementCounter:YES];
+        self.queue = queue;
         [self send];
+        [self release];
     }
 #endif
 }
