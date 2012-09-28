@@ -699,7 +699,9 @@ RKRequestMethod RKRequestMethodTypeFromName(NSString *methodName) {
     if (![response wasLoadedFromCache] && [response isSuccessful] && (_cachePolicy != RKRequestCachePolicyNone)) {
         [self.cache storeResponse:response forRequest:self];
     }
-
+    
+    [self retain];
+    [self.response retain];
     if ([_delegate respondsToSelector:@selector(request:didLoadResponse:)]) {
         [_delegate request:self didLoadResponse:self.response];
     }
@@ -721,6 +723,8 @@ RKRequestMethod RKRequestMethodTypeFromName(NSString *methodName) {
     // NOTE: This notification must be posted last as the request queue releases the request when it
     // receives the notification
     [[NSNotificationCenter defaultCenter] postNotificationName:RKRequestDidFinishLoadingNotification object:self];
+    [self.response release];
+    [self release];
 }
 
 - (BOOL)isGET
