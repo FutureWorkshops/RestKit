@@ -2480,10 +2480,7 @@
 			baseConfigurationReference = 258F8500141061C3007AABCD /* PortableStaticLibrary.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"ARCHS[sdk=iphoneos*]" = (
-					armv6,
-					armv7,
-				);
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				"ARCHS[sdk=macosx*]" = "$(ARCHS_STANDARD_32_64_BIT)";
 				BUILD_STYLE = Debug;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -2497,7 +2494,7 @@
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 				SYMROOT = Build;
-				VALID_ARCHS = "armv6 armv7 i386 x86_64";
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -2506,10 +2503,7 @@
 			baseConfigurationReference = 258F8500141061C3007AABCD /* PortableStaticLibrary.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"ARCHS[sdk=iphoneos*]" = (
-					armv6,
-					armv7,
-				);
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				"ARCHS[sdk=macosx*]" = "$(ARCHS_STANDARD_32_64_BIT)";
 				BUILD_STYLE = Release;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -2522,7 +2516,7 @@
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 				SYMROOT = Build;
-				VALID_ARCHS = "armv6 armv7 i386 x86_64";
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 			};
 			name = Release;
 		};
@@ -2530,6 +2524,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2547,6 +2542,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/NXJSON/Private;
 				PRODUCT_NAME = RestKitJSONParserNXJSON;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/NXJSON;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -2554,6 +2550,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				DSTROOT = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2568,6 +2565,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/NXJSON/Private;
 				PRODUCT_NAME = RestKitJSONParserNXJSON;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/NXJSON;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 			};
 			name = Release;
 		};
@@ -2575,6 +2573,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				DSTROOT = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2589,6 +2588,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/NXJSON/Private;
 				PRODUCT_NAME = RestKitJSONParserNXJSON;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/NXJSON;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 			};
 			name = Distribution;
 		};
@@ -2597,6 +2597,7 @@
 			buildSettings = {
 				ADDITIONAL_SDKS = "";
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Debug;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2617,7 +2618,7 @@
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Three20;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				USER_HEADER_SEARCH_PATHS = "";
-				VALID_ARCHS = "armv6 armv7 i386";
+				VALID_ARCHS = "armv7s armv7 i386";
 			};
 			name = Debug;
 		};
@@ -2626,6 +2627,7 @@
 			buildSettings = {
 				ADDITIONAL_SDKS = "";
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Release;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2644,7 +2646,7 @@
 				PRODUCT_NAME = RestKitThree20;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Three20;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				VALID_ARCHS = "armv6 armv7 i386";
+				VALID_ARCHS = "armv7s armv7 i386";
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -2654,10 +2656,7 @@
 			baseConfigurationReference = 258F8500141061C3007AABCD /* PortableStaticLibrary.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"ARCHS[sdk=iphoneos*]" = (
-					armv6,
-					armv7,
-				);
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				"ARCHS[sdk=macosx*]" = "$(ARCHS_STANDARD_32_64_BIT)";
 				BUILD_STYLE = Release;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -2670,7 +2669,7 @@
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 				SYMROOT = Build;
-				VALID_ARCHS = "armv6 armv7 i386 x86_64";
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 			};
 			name = Distribution;
 		};
@@ -2678,6 +2677,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Release;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2685,6 +2686,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Network/Private;
 				PRODUCT_NAME = RestKitNetwork;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Network;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 				ZERO_LINK = NO;
 			};
 			name = Distribution;
@@ -2693,6 +2695,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Release;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2700,6 +2704,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/ObjectMapping/Private;
 				PRODUCT_NAME = RestKitObjectMapping;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/ObjectMapping;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 				ZERO_LINK = NO;
 			};
 			name = Distribution;
@@ -2708,6 +2713,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Release;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2715,6 +2721,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Support/Private;
 				PRODUCT_NAME = RestKitSupport;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Support;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 				ZERO_LINK = NO;
 			};
 			name = Distribution;
@@ -2723,6 +2730,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Release;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2736,6 +2744,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/YAJL/Private;
 				PRODUCT_NAME = RestKitJSONParserYAJL;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/YAJL;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 				YAJL_GENERAL_OTHER_CFLAGS = "-Wdiv-by-zero -Wbad-function-cast -Wnested-externs -Wold-style-definition";
 				ZERO_LINK = NO;
 			};
@@ -2745,6 +2754,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Release;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2755,6 +2765,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/SBJSON/Private;
 				PRODUCT_NAME = RestKitJSONParserSBJSON;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/SBJSON;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 				ZERO_LINK = NO;
 			};
 			name = Distribution;
@@ -2763,6 +2774,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				OTHER_LDFLAGS = (
@@ -2772,6 +2784,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/JSONKit/Private;
 				PRODUCT_NAME = RestKitJSONParserJSONKit;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/JSONKit;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 				ZERO_LINK = NO;
 			};
 			name = Distribution;
@@ -2780,12 +2793,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Release;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/CoreData/Private;
 				PRODUCT_NAME = RestKitCoreData;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/CoreData;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 				ZERO_LINK = NO;
 			};
 			name = Distribution;
@@ -2795,6 +2810,7 @@
 			buildSettings = {
 				ADDITIONAL_SDKS = "";
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Release;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2813,7 +2829,7 @@
 				PRODUCT_NAME = RestKitThree20;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Three20;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				VALID_ARCHS = "armv6 armv7 i386";
+				VALID_ARCHS = "armv7s armv7 i386";
 				ZERO_LINK = NO;
 			};
 			name = Distribution;
@@ -2822,6 +2838,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Release;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
@@ -2858,6 +2875,7 @@
 				PRODUCT_NAME = RestKitSpecs;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 				ZERO_LINK = NO;
 			};
 			name = Distribution;
@@ -2866,6 +2884,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Debug;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2874,6 +2894,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Network/Private;
 				PRODUCT_NAME = RestKitNetwork;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Network;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -2881,6 +2902,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Release;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2888,6 +2911,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Network/Private;
 				PRODUCT_NAME = RestKitNetwork;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Network;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -2896,6 +2920,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Debug;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2904,6 +2930,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/ObjectMapping/Private;
 				PRODUCT_NAME = RestKitObjectMapping;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/ObjectMapping;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -2911,6 +2938,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Release;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2918,6 +2947,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/ObjectMapping/Private;
 				PRODUCT_NAME = RestKitObjectMapping;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/ObjectMapping;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -2926,6 +2956,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Debug;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2934,6 +2965,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Support/Private;
 				PRODUCT_NAME = RestKitSupport;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Support;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -2941,6 +2973,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Release;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2948,6 +2981,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Support/Private;
 				PRODUCT_NAME = RestKitSupport;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Support;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -2956,6 +2990,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Debug;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2963,6 +2998,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/CoreData/Private;
 				PRODUCT_NAME = RestKitCoreData;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/CoreData;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -2970,12 +3006,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Release;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/CoreData/Private;
 				PRODUCT_NAME = RestKitCoreData;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/CoreData;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -2985,10 +3023,7 @@
 			baseConfigurationReference = 258F8500141061C3007AABCD /* PortableStaticLibrary.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"ARCHS[sdk=iphoneos*]" = (
-					armv6,
-					armv7,
-				);
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				"ARCHS[sdk=macosx*]" = "$(ARCHS_STANDARD_32_64_BIT)";
 				BUILD_STYLE = Release;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -3001,17 +3036,20 @@
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 				SYMROOT = Build;
-				VALID_ARCHS = "armv6 armv7 i386 x86_64";
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 			};
 			name = "Ad Hoc";
 		};
 		255920CD13BDEDB400E9C29C /* Ad Hoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 			};
 			name = "Ad Hoc";
 		};
@@ -3019,6 +3057,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Release;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -3026,6 +3066,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Network/Private;
 				PRODUCT_NAME = RestKitNetwork;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Network;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 				ZERO_LINK = NO;
 			};
 			name = "Ad Hoc";
@@ -3034,6 +3075,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Release;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -3041,6 +3084,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/ObjectMapping/Private;
 				PRODUCT_NAME = RestKitObjectMapping;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/ObjectMapping;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 				ZERO_LINK = NO;
 			};
 			name = "Ad Hoc";
@@ -3049,6 +3093,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Release;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -3056,6 +3101,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Support/Private;
 				PRODUCT_NAME = RestKitSupport;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Support;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 				ZERO_LINK = NO;
 			};
 			name = "Ad Hoc";
@@ -3064,6 +3110,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Release;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -3077,6 +3124,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/YAJL/Private;
 				PRODUCT_NAME = RestKitJSONParserYAJL;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/YAJL;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 				YAJL_GENERAL_OTHER_CFLAGS = "-Wdiv-by-zero -Wbad-function-cast -Wnested-externs -Wold-style-definition";
 				ZERO_LINK = NO;
 			};
@@ -3086,6 +3134,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Release;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -3096,6 +3145,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/SBJSON/Private;
 				PRODUCT_NAME = RestKitJSONParserSBJSON;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/SBJSON;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 				ZERO_LINK = NO;
 			};
 			name = "Ad Hoc";
@@ -3104,6 +3154,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				OTHER_LDFLAGS = (
@@ -3113,6 +3164,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/JSONKit/Private;
 				PRODUCT_NAME = RestKitJSONParserJSONKit;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/JSONKit;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 				ZERO_LINK = NO;
 			};
 			name = "Ad Hoc";
@@ -3121,6 +3173,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				OTHER_LDFLAGS = (
@@ -3130,6 +3183,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Support/XML/LibXML/Private;
 				PRODUCT_NAME = RestKitXMLParserLibxml;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Support/XML/LibXML;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 			};
 			name = "Ad Hoc";
 		};
@@ -3137,12 +3191,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Release;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/CoreData/Private;
 				PRODUCT_NAME = RestKitCoreData;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/CoreData;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 				ZERO_LINK = NO;
 			};
 			name = "Ad Hoc";
@@ -3152,6 +3208,7 @@
 			buildSettings = {
 				ADDITIONAL_SDKS = "";
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Release;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -3170,7 +3227,7 @@
 				PRODUCT_NAME = RestKitThree20;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Three20;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				VALID_ARCHS = "armv6 armv7 i386";
+				VALID_ARCHS = "armv7s armv7 i386";
 				ZERO_LINK = NO;
 			};
 			name = "Ad Hoc";
@@ -3179,6 +3236,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Release;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
@@ -3215,6 +3273,7 @@
 				PRODUCT_NAME = RestKitSpecs;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 				ZERO_LINK = NO;
 			};
 			name = "Ad Hoc";
@@ -3222,30 +3281,39 @@
 		255B758A133BABBF00ED76AD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 			};
 			name = Debug;
 		};
 		255B758B133BABBF00ED76AD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 			};
 			name = Release;
 		};
 		255B758C133BABBF00ED76AD /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 			};
 			name = Distribution;
 		};
@@ -3253,6 +3321,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Debug;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -3267,6 +3336,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/YAJL/Private;
 				PRODUCT_NAME = RestKitJSONParserYAJL;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/YAJL;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 				YAJL_GENERAL_OTHER_CFLAGS = "-Wdiv-by-zero -Wbad-function-cast -Wnested-externs -Wold-style-definition";
 			};
 			name = Debug;
@@ -3275,6 +3345,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Release;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -3288,6 +3359,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/YAJL/Private;
 				PRODUCT_NAME = RestKitJSONParserYAJL;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/YAJL;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 				YAJL_GENERAL_OTHER_CFLAGS = "-Wdiv-by-zero -Wbad-function-cast -Wnested-externs -Wold-style-definition";
 				ZERO_LINK = NO;
 			};
@@ -3297,6 +3369,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Debug;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3308,6 +3381,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/SBJSON/Private;
 				PRODUCT_NAME = RestKitJSONParserSBJSON;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/SBJSON;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -3315,6 +3389,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Release;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -3325,6 +3400,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/SBJSON/Private;
 				PRODUCT_NAME = RestKitJSONParserSBJSON;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/SBJSON;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -3333,6 +3409,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
@@ -3343,6 +3420,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Support/XML/LibXML/Private;
 				PRODUCT_NAME = RestKitXMLParserLibxml;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Support/XML/LibXML;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -3350,6 +3428,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				OTHER_LDFLAGS = (
@@ -3359,6 +3438,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Support/XML/LibXML/Private;
 				PRODUCT_NAME = RestKitXMLParserLibxml;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Support/XML/LibXML;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 			};
 			name = Release;
 		};
@@ -3366,6 +3446,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				OTHER_LDFLAGS = (
@@ -3375,6 +3456,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Support/XML/LibXML/Private;
 				PRODUCT_NAME = RestKitXMLParserLibxml;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Support/XML/LibXML;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 			};
 			name = Distribution;
 		};
@@ -3383,6 +3465,7 @@
 			buildSettings = {
 				ADDITIONAL_SDKS = "";
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Debug;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -3421,6 +3504,7 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -3428,6 +3512,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_STYLE = Release;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
@@ -3464,6 +3549,7 @@
 				PRODUCT_NAME = RestKitSpecs;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -3472,6 +3558,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -3482,6 +3569,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/JSONKit/Private;
 				PRODUCT_NAME = RestKitJSONParserJSONKit;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/JSONKit;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -3489,6 +3577,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				OTHER_LDFLAGS = (
@@ -3498,6 +3587,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/JSONKit/Private;
 				PRODUCT_NAME = RestKitJSONParserJSONKit;
 				PUBLIC_HEADERS_FOLDER_PATH = include/RestKit/Support/JSON/JSONKit;
+				VALID_ARCHS = "armv7s armv7 i386 x86_64";
 				ZERO_LINK = NO;
 			};
 			name = Release;
